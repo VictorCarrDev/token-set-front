@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import "./index.css";
 
 import NavBar from "./components/Navbar";
@@ -8,17 +7,20 @@ import web3 from "web3";
 import Chart from "./components/grahc";
 import BuySell from "./components/BuySell";
 import Modal from "./components/modal";
+import ExchangeToken from "./components/ExchangeToken";
 
 const getLibrary = (provider) => {
   return new web3(provider);
 };
 
 const App = () => {
-  const [modalActive, setmodalActive] = useState(false);
+  const [modalActive, setmodalActive] = useState(true);
 
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <Modal active={modalActive}></Modal>
+      <Modal active={modalActive}>
+        <ExchangeToken/>
+      </Modal>
       <NavBar />
 
       <p className="text-center ">hola</p>
