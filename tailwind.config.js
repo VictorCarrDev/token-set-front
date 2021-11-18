@@ -2,10 +2,13 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      transitionProperty: {
+        visibility: "visibility",},
+    },
   },
   variants: {
     extend: {},
   },
   plugins: [],
-}
+};

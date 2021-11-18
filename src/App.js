@@ -8,24 +8,27 @@ import Chart from "./components/grahc";
 import BuySell from "./components/BuySell";
 import Modal from "./components/modal";
 import ExchangeToken from "./components/ExchangeToken";
+import GetBalanceOrText from "./components/GetBalance";
 
 const getLibrary = (provider) => {
   return new web3(provider);
 };
 
 const App = () => {
-  const [modalActive, setmodalActive] = useState(true);
+  const [modalActive, setmodalActive] = useState(false);
 
+  
+  // useEffect(()=>{},[modalActive])
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       <Modal active={modalActive}>
-        <ExchangeToken/>
+        <ExchangeToken cancelFunction={()=>setmodalActive(false)}/>
       </Modal>
       <NavBar />
 
-      <p className="text-center ">hola</p>
+      <GetBalanceOrText/>
       <Chart />
-      <BuySell />
+      <BuySell buyFunction={()=>setmodalActive(true)} />
     </Web3ReactProvider>
   );
 };

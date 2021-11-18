@@ -60,7 +60,7 @@ const Chart = (props) => {
 
     let yData;
     let xData;
-    const before = new Date(new Date().setDate(-80)) / 1000;
+    const before = new Date(new Date().setDate(-70)) / 1000;
     console.log(before);
     const after = new Date() / 1000;
     getData(before, after).then((value) => {
