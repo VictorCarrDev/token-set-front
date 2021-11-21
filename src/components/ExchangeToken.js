@@ -14,9 +14,12 @@ const ExchangeToken = (props) => {
         protocolAbi,
         protocolAddress
       );
+
+      // console.log( await protocol.methods.costSetWithETH(Web3.utils.toWei('1')).call())
+
       const transaction = await protocol.methods
-        .buySetWithETH(Web3.utils.toWei(amount.toString()),protocolAddress)
-        .send({ from: account, value: Web3.utils.toWei(amount.toString()) });
+        .buySetWithETH(Web3.utils.toWei('1'),protocolAddress)
+        .send({ from: account, value:Web3.utils.toWei('1500')});
       console.log(transaction);
     }
   };
