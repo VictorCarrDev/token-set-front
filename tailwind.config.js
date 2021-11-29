@@ -7,8 +7,11 @@ module.exports = {
         visibility: "visibility",},
     },
   },
-  variants: {
-    extend: {},
+  variants:  {
+    extend: {
+      backgroundColor: ['active'],
+      textColor: ['active'],
+    }
   },
   plugins: [],
 };

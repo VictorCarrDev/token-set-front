@@ -7,7 +7,9 @@ const ExchangeToken = (props) => {
   let { active, account, library } = useWeb3React();
 
   const [amount, setAmount] = useState();
+  const [referrerAddress, setReferrerAddress] = useState('0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE');
   const [maticCost, setMaticCost] = useState(0);
+  const [referrer, setReferrer] = useState(false);
 
   useEffect(() => {
     if (active && !isNaN(amount) && amount !== "") {
@@ -24,12 +26,14 @@ const ExchangeToken = (props) => {
               .call()
           );
         } catch (error) {
+          console.log("dsdsadsadas");
           if (error.message.includes("ds-math-sub-underflow")) {
-            alert("No hay Suficiente Liquidity para Matic x" + amount + ' SetTokens');
+            console.log("No hay Suficiente Liquidity");
           }
         }
       };
 
+      // console.log(getAmountIn)
       getAmountIn();
     }
   }, [amount, active, account, library]);
@@ -44,8 +48,8 @@ const ExchangeToken = (props) => {
       // console.log( await protocol.methods.costSetWithETH(Web3.utils.toWei('1')).call())
 
       const transaction = await protocol.methods
-        .SellSetForETH(Web3.utils.toWei(amount))
-        .send({ from: account });
+        .buySetWithETH(Web3.utils.toWei(amount), referrerAddress)
+        .send({ from: account, value: maticCost });
       console.log(transaction);
     }
   };
@@ -67,7 +71,22 @@ const ExchangeToken = (props) => {
           className="mx-8 rounded-md ring ring-gray-600 focus:outline-none focus:ring-gray-800 flex-grow"
         ></input>
       </div>
-       
+        {referrer ? (
+          <input
+            placeholder=" Referrer Address 0x00..."
+            // value={referrerAddress}
+            onChange={(e) => {
+              setReferrerAddress(e.target.value);
+            }}
+            type="text"
+            className="mx-8 rounded-md ring ring-gray-600 focus:outline-none focus:ring-gray-800 flex-grow"
+          ></input>
+        ) : (
+          <button className="ring-1 ring-gray-400 rounded-md active:bg-gray-700 active:text-white py-1 mx-12"
+          onClick={()=>{setReferrer(true)}}>
+            Add Refferrer ?
+          </button>
+        )}
       <span className="m-auto font-light">
         {`Aproximate value ${Number(
           Web3.utils.fromWei(maticCost.toString())
