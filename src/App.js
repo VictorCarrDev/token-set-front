@@ -16,19 +16,28 @@ const getLibrary = (provider) => {
 
 const App = () => {
   const [modalActive, setmodalActive] = useState(false);
+  const [buy, setBuy] = useState(false);
 
-  
   // useEffect(()=>{},[modalActive])
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       <Modal active={modalActive}>
-        <ExchangeToken cancelFunction={()=>setmodalActive(false)}/>
+        <ExchangeToken buy={buy} cancelFunction={() => setmodalActive(false)} />
       </Modal>
       <NavBar />
 
-      <GetBalanceOrText/>
+      <GetBalanceOrText />
       <Chart />
-      <BuySell buyFunction={()=>setmodalActive(true)} />
+      <BuySell
+        sellFunction={() => {
+          setBuy(false);
+          setmodalActive(true);
+        }}
+        buyFunction={() => {
+          setBuy(true);
+          setmodalActive(true);
+        }}
+      />
     </Web3ReactProvider>
   );
 };
