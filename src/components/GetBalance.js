@@ -14,6 +14,7 @@ const GetBalanceOrText = () => {
           const erc20 = await new library.eth.Contract(ERC20_ABI, setAddress);
           const amount = await erc20.methods.balanceOf(account).call();
           console.log(amount)
+          
         setMessage((preState)=>{return "You current holding is " + amount})
         }
       };

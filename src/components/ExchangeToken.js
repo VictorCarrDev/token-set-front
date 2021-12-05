@@ -38,7 +38,7 @@ const ExchangeToken = (props) => {
     }
   }, [amount, active, account, library]);
 
-  const buyTokenSet = async () => {
+  const sellTokenSet = async () => {
     if (active) {
       const protocol = await new library.eth.Contract(protocolAbi, refAddress);
 
@@ -47,6 +47,19 @@ const ExchangeToken = (props) => {
       const transaction = await protocol.methods
         .SellSetForETH(Web3.utils.toWei(amount))
         .send({ from: account });
+      console.log(transaction);
+    }
+  };
+
+  const buyTokenSet = async () => {
+    if (active) {
+      const protocol = await new library.eth.Contract(protocolAbi, protocolAddress);
+
+      // console.log( await protocol.methods.costSetWithETH(Web3.utils.toWei('1')).call())
+
+      const transaction = await protocol.methods
+        .buySetWithETH(Web3.utils.toWei(amount),refAddress)
+        .send({ from: account, value:maticCost });
       console.log(transaction);
     }
   };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./index.css";
 
 import NavBar from "./components/Navbar";
@@ -17,16 +17,17 @@ const getLibrary = (provider) => {
 const App = () => {
   const [modalActive, setmodalActive] = useState(false);
   const [buy, setBuy] = useState(false);
+  const[update,setUpdate]= useState(0)
 
   // useEffect(()=>{},[modalActive])
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       <Modal active={modalActive}>
-        <ExchangeToken buy={buy} cancelFunction={() => setmodalActive(false)} />
+        <ExchangeToken buy={buy} cancelFunction={() => {setmodalActive(false);setUpdate((prevState)=>{return prevState+1})}} />
       </Modal>
       <NavBar />
 
-      <GetBalanceOrText />
+      <GetBalanceOrText key={update}/>
       <Chart />
       <BuySell
         sellFunction={() => {
