@@ -98,7 +98,7 @@ const ListOfTokens = (props) => {
       {component.map((component, index) => (
         <Fragment key={index}>{component}</Fragment>
       ))}
-    <p>{`Token Set Value ${setValue} $`}</p>
+    <p className='m-auto text-2xl font-semibold text-gray-800'>{`Token Set Value ${setValue} $`}</p>
     </div>
   );
 };
