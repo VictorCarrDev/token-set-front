@@ -28,20 +28,22 @@ const ListOfTokens = (props) => {
 
       try {
         const name = await erc20.methods.name().call();
-        return name;
+        const decimals = await erc20.methods.decimals().call();
+        return [name, decimals];
       } catch (error) {
-        return "";
+        return '';
       }
     }
   };
 
-  const priceAndTotal = async (address, amount) => {
+  const priceAndTotal = async (address, amount,decimal) => {
     const data = await axios.get(
       `https://api.coingecko.com/api/v3/simple/token_price/polygon-pos?contract_addresses=${address}&vs_currencies=usd`
     );
 
     const value = data.data[Object.keys(data.data)[0]].usd;
-    const totalValue = Number(value) * Number(amount);
+    const totalValue = Number(value) * (Number(amount) / (10**Number(decimal)));
+    console.log(totalValue)
     return [value, totalValue];
   };
 
@@ -64,9 +66,8 @@ const ListOfTokens = (props) => {
         const address = addresesList[index];
         const amount = amountList[index];
 
-        const name = await getTokenName(address);
-        const [price, Total] = await priceAndTotal(address, amount);
-
+        const[ name, decimals ]= await getTokenName(address);
+        const [price, Total] = await priceAndTotal(address, amount,decimals);
         tokenSetTotalValue += Number(Total);
 
           setComponent((prevState) => {
@@ -74,6 +75,7 @@ const ListOfTokens = (props) => {
           });
       }
 
+      setSetValue(tokenSetTotalValue)
 
       console.log(addresesList, amountList);
     }
@@ -96,7 +98,7 @@ const ListOfTokens = (props) => {
       {component.map((component, index) => (
         <Fragment key={index}>{component}</Fragment>
       ))}
-      {/* <ListOfElement /> */}
+    <p>{`Token Set Value ${setValue} $`}</p>
     </div>
   );
 };
