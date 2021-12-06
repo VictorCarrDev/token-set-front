@@ -3,6 +3,7 @@ import { useWeb3React } from "@web3-react/core";
 import { ERC20_ABI } from "../Abis/Protocol";
 import { setAddress } from "../Abis/Address";
 import { useEffect, useState } from "react";
+import Web3 from "web3";
 
 const GetBalanceOrText = () => {
   let { active, account, library } = useWeb3React();
@@ -15,7 +16,9 @@ const GetBalanceOrText = () => {
           const amount = await erc20.methods.balanceOf(account).call();
           console.log(amount)
           
-        setMessage((preState)=>{return "You current holding is " + amount})
+        setMessage((preState)=>{return "You current holding is " + Number(
+          Web3.utils.fromWei(amount.toString())
+        ).toFixed(4)})
         }
       };
         getBalance()
