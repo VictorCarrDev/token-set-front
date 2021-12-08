@@ -7,7 +7,7 @@ const NavBar = (props) => {
   return (
     <div className="flex shadow-sm bg-gray-300 h-16">
       <div className="flex-grow " />
-      <p className="m-auto px-2 ">{'Chain Id ' + chainId}</p>
+      <p className="m-auto px-2 ">{chainId === 31337 ?  'Connected to Polygon' : 'Please connect to Polygon'}</p>
       <div className="flex-grow " />
 
         {/* {active ? <p className="m-auto px-2 ">{account.slice(0,6)+ '...' + account.slice(-4)}</p> : null} */}

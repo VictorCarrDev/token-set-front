@@ -61,6 +61,7 @@ const ListOfTokens = (props) => {
       const addresesList = addressesAndValues[0];
       const amountList = addressesAndValues[1];
       let tokenSetTotalValue = 0;
+      setComponent([])
 
       for (let index = 0; index < addresesList.length; index++) {
         const address = addresesList[index];
@@ -71,7 +72,7 @@ const ListOfTokens = (props) => {
         tokenSetTotalValue += Number(Total);
 
           setComponent((prevState) => {
-            return [<ListOfElement name={name} amount={amount} cost={price} />,...prevState];
+            return [<ListOfElement name={name} amount={amount / 10 ** decimals} cost={price} />,...prevState];
           });
       }
 
@@ -92,7 +93,7 @@ const ListOfTokens = (props) => {
         <p className="text-center  m-auto">Token Name</p>
         <div className="col-span-4 my-auto h-1"></div>
         <p className="text-center m-auto">Token Amount</p>
-        <p className="text-center  m-auto">Cost $</p>
+        <p className="text-center  m-auto">Cost of Token $</p>
       </div>
       {/* <ListOfElement name='Token Name' amount='Token Amount' cost='cost $'/> */}
       {component.map((component, index) => (
