@@ -10,7 +10,7 @@ import axios from "axios";
 const ListOfTokens = (props) => {
   let { active, library } = useWeb3React();
   const [component, setComponent] = useState([]);
-  const [setValue, setSetValue] = useState('');
+  const [setValue, setSetValue] = useState("");
 
   const ListOfElement = (props) => {
     return (
@@ -31,61 +31,71 @@ const ListOfTokens = (props) => {
         const decimals = await erc20.methods.decimals().call();
         return [name, decimals];
       } catch (error) {
-        return '';
+        return "";
       }
     }
   };
 
-  const priceAndTotal = async (address, amount,decimal) => {
+  const priceAndTotal = async (address, amount, decimal) => {
     const data = await axios.get(
       `https://api.coingecko.com/api/v3/simple/token_price/polygon-pos?contract_addresses=${address}&vs_currencies=usd`
     );
 
     const value = data.data[Object.keys(data.data)[0]].usd;
-    const totalValue = Number(value) * (Number(amount) / (10**Number(decimal)));
-    console.log(totalValue)
+    const totalValue = Number(value) * (Number(amount) / 10 ** Number(decimal));
+    console.log(totalValue);
     return [value, totalValue];
   };
 
   const heavyfunction = async () => {
     if (active) {
-      const basicIssue = await new library.eth.Contract(
-        basicIssuanceAbi,
-        basicIssuanceModuleAddress
-      );
+      try {
+        const basicIssue = await new library.eth.Contract(
+          basicIssuanceAbi,
+          basicIssuanceModuleAddress
+        );
 
-      const addressesAndValues = await basicIssue.methods
-        .getRequiredComponentUnitsForIssue(setAddress, Web3.utils.toWei("1"))
-        .call();
+        const addressesAndValues = await basicIssue.methods
+          .getRequiredComponentUnitsForIssue(setAddress, Web3.utils.toWei("1"))
+          .call();
 
-      const addresesList = addressesAndValues[0];
-      const amountList = addressesAndValues[1];
-      let tokenSetTotalValue = 0;
-      setComponent([])
+        const addresesList = addressesAndValues[0];
+        const amountList = addressesAndValues[1];
+        let tokenSetTotalValue = 0;
+        setComponent([]);
 
-      for (let index = 0; index < addresesList.length; index++) {
-        const address = addresesList[index];
-        const amount = amountList[index];
+        for (let index = 0; index < addresesList.length; index++) {
+          const address = addresesList[index];
+          const amount = amountList[index];
 
-        const[ name, decimals ]= await getTokenName(address);
-        const [price, Total] = await priceAndTotal(address, amount,decimals);
-        tokenSetTotalValue += Number(Total);
+          const [name, decimals] = await getTokenName(address);
+          const [price, Total] = await priceAndTotal(address, amount, decimals);
+          tokenSetTotalValue += Number(Total);
 
           setComponent((prevState) => {
-            return [<ListOfElement name={name} amount={amount / 10 ** decimals} cost={price} />,...prevState];
+            return [
+              <ListOfElement
+                name={name}
+                amount={amount / 10 ** decimals}
+                cost={price}
+              />,
+              ...prevState,
+            ];
           });
+        }
+
+        setSetValue(tokenSetTotalValue);
+
+        console.log(addresesList, amountList);
+      } catch (error) {
+        console.log(error);
       }
-
-      setSetValue(tokenSetTotalValue)
-
-      console.log(addresesList, amountList);
     }
   };
 
   useEffect(() => {
     heavyfunction();
   }, [active]);
-
 
   return (
     <div className="flex flex-col space-y-4 mx-48">
@@ -99,7 +109,7 @@ const ListOfTokens = (props) => {
       {component.map((component, index) => (
         <Fragment key={index}>{component}</Fragment>
       ))}
-    <p className='m-auto text-2xl font-semibold text-gray-800'>{`Token Set Value ${setValue} $`}</p>
+      <p className="m-auto text-2xl font-semibold text-blue-800">{`Token Set Value ${setValue} $`}</p>
     </div>
   );
 };

@@ -55,8 +55,8 @@ const ExchangeToken = (props) => {
   };
 
   return (
-    <div className="  bg-gray-200 m-auto z-40 flex flex-col p-5 gap-4 rounded-lg transition-all ">
-      <p className="border-gray-400 border-b-2 pb-1 text-lg text-gray-800 font-bold">
+    <div className="  bg-blue-200 m-auto z-40 flex flex-col p-5 gap-4 rounded-lg transition-all ">
+      <p className="border-blue-400 border-b-2 pb-1 text-lg text-blue-800 font-bold">
         Buy Tokens
       </p>
       <div className="flex gap-4">
@@ -68,7 +68,7 @@ const ExchangeToken = (props) => {
             setAmount(e.target.value);
           }}
           type="number"
-          className="mx-8 rounded-md ring ring-gray-600 focus:outline-none focus:ring-gray-800 flex-grow"
+          className="mx-8 rounded-md ring ring-blue-600 focus:outline-none focus:ring-blue-800 flex-grow"
         ></input>
       </div>
         {referrer ? (
@@ -79,10 +79,10 @@ const ExchangeToken = (props) => {
               setReferrerAddress(e.target.value);
             }}
             type="text"
-            className="mx-8 rounded-md ring ring-gray-600 focus:outline-none focus:ring-gray-800 flex-grow"
+            className="mx-8 rounded-md ring ring-blue-600 focus:outline-none focus:ring-blue-800 flex-grow"
           ></input>
         ) : (
-          <button className="ring-1 ring-gray-400 rounded-md active:bg-gray-700 active:text-white py-1 mx-12"
+          <button className="ring-1 ring-blue-400 rounded-md active:bg-blue-700 active:text-white py-1 mx-12"
           onClick={()=>{setReferrer(true)}}>
             Add Refferrer ?
           </button>
@@ -102,13 +102,13 @@ const ExchangeToken = (props) => {
       <div className="flex justify-center gap-8 px-20">
         <button
           onClick={props.cancelFunction}
-          className="ring-1 ring-gray-500 hover:bg-gray-500 rounded-md py-2 px-6"
+          className="ring-1 ring-blue-500 hover:bg-blue-500 rounded-md py-2 px-6"
         >
           Cancel
         </button>
         <button
           onClick={buyTokenSet}
-          className="hover:bg-gray-700 bg-gray-500 text-white rounded-md flex py-2 px-8"
+          className="hover:bg-blue-700 bg-blue-500 text-white rounded-md flex py-2 px-8"
         >
           Buy
         </button>
