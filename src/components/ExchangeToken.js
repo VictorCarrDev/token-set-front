@@ -150,7 +150,7 @@ const ExchangeToken = (props) => {
           ).toFixed(4)} MATIC`}{" "}
         </span>
 
-        <div className="flex justify-center gap-8 px-20">
+        <div className="flex justify-center gap-8 px-10 sm:px-20">
           <button
             onClick={props.cancelFunction}
             className="ring-1 ring-blue-500 hover:bg-blue-500 rounded-md py-2 px-6"
@@ -190,7 +190,7 @@ const ExchangeToken = (props) => {
           ).toFixed(4)} MATIC`}{" "}
         </span>
 
-        <div className="flex justify-center gap-8 px-20">
+        <div className="flex justify-center gap-8 px-10 sm:px-20">
           <button
             onClick={props.cancelFunction}
             className="ring-1 ring-blue-500 hover:bg-blue-500 rounded-md py-2 px-6"

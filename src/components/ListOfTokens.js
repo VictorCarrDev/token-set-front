@@ -14,11 +14,11 @@ const ListOfTokens = (props) => {
 
   const ListOfElement = (props) => {
     return (
-      <div className="grid grid-cols-7 gap-2">
+      <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-6">
         <p className="text-center  m-auto">{props.name || "Unkown"}</p>
-        <div className="col-span-4 my-auto h-1 border-b-2 border-gray-400"></div>
-        <p className="text-center m-auto">{props.amount || "Unkown"}</p>
-        <p className="text-center  m-auto">{props.cost || "Unkown"} $</p>
+        <div className="hidden sm:block  md:col-span-2 lg:col-span-4 my-auto h-1 border-b-2 border-gray-400"></div>
+        <p className="text-xs font-semibold md:text-base md:font-normal text-center m-auto">{props.amount || "Unkown"}</p>
+        <p className="text-xs font-semibold md:text-base md:font-normal text-center  m-auto">{props.cost || "Unkown"} $</p>
       </div>
     );
   };
@@ -98,10 +98,10 @@ const ListOfTokens = (props) => {
   }, [active]);
 
   return (
-    <div className="flex flex-col space-y-4 mx-48">
-      <div className="grid grid-cols-7 gap-2">
+    <div className="flex flex-col space-y-4 mx-4 md:mx-16 lg:mx-48">
+      <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-2">
         <p className="text-center  m-auto">Token Name</p>
-        <div className="col-span-4 my-auto h-1"></div>
+        <div className="hidden md:block md:col-span-2 lg:col-span-4 my-auto h-1"></div>
         <p className="text-center m-auto">Token Amount</p>
         <p className="text-center  m-auto">Cost of Token $</p>
       </div>
